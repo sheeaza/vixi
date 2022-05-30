@@ -22,7 +22,6 @@ pub struct TermionLayout {
 impl TermionLayout {
     pub fn new() -> Self {
         let mut stdout = AlternateScreen::from(stdout().into_raw_mode().unwrap());
-        debug!("{} colors available", stdout.available_colors().unwrap());
 
         write!(stdout, "{}", clear::All).unwrap();
 
