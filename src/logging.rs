@@ -1,3 +1,4 @@
+use log::{error, info};
 use std::path::Path;
 use std::{env, fmt, fs, io, panic, thread};
 

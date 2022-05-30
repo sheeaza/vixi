@@ -2,6 +2,8 @@ use std::io::{self, BufRead, Read, Write};
 use std::sync::mpsc::{channel, Receiver, Sender};
 use std::thread;
 
+use log::error;
+use serde_json::json;
 use serde_json::Value;
 use xi_core_lib::XiCore;
 use xi_rpc::RpcLoop;

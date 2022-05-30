@@ -2,8 +2,10 @@ mod actions;
 pub mod keyboard;
 mod mode_actions;
 
+use serde_derive::Deserialize;
 use std::collections::HashMap;
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
+use std::sync::Mutex;
 
 use self::actions::{Action, Response};
 use self::keyboard::{KeyStroke, Keyboard};
@@ -11,6 +13,8 @@ use self::mode_actions::ModeActions;
 use crate::core::ClientToClientWriter;
 
 use failure::Error;
+use lazy_static::lazy_static;
+use serde_json::json;
 use xi_rpc::Peer;
 
 lazy_static! {
@@ -179,5 +183,4 @@ mod tests {
             config.visual_mode[&String::from("move_down")]
         );
     }
-
 }

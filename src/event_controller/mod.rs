@@ -14,6 +14,9 @@ use self::style::{RGBColor, StyleID};
 use self::view::{View, ViewID};
 use self::window::Layout;
 
+use log::{debug, info, warn};
+use serde_derive::Deserialize;
+use serde_json::json;
 use serde_json::Value;
 use xi_rpc::{RemoteError, RpcCall, RpcCtx};
 

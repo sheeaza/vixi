@@ -1,6 +1,8 @@
 use crate::core::ClientToClientWriter;
 use crate::input_controller::keyboard::KeyStroke;
 use crate::input_controller::{Response, PASTE_BUFFER};
+use log::error;
+use serde_json::json;
 
 use xi_rpc::Peer;
 

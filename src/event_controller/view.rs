@@ -4,6 +4,8 @@ use std::rc::Rc;
 use super::style::{Styles, LINE_SECTION_STYLE_ID, STYLE_LEN};
 use super::window::Window;
 use super::Operation;
+use log::error;
+use serde_json::json;
 
 use xi_rpc::RpcCtx;
 

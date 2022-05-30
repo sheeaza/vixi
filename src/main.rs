@@ -1,29 +1,3 @@
-#[macro_use]
-extern crate serde_json;
-extern crate xi_core_lib;
-extern crate xi_rpc;
-#[macro_use]
-extern crate log;
-extern crate chrono;
-extern crate fern;
-#[macro_use]
-extern crate clap;
-extern crate dirs;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-#[macro_use]
-extern crate failure;
-#[macro_use]
-extern crate lazy_static;
-extern crate termion;
-extern crate toml;
-#[cfg(feature = "tracing")]
-extern crate xi_trace;
-
-#[cfg(feature = "with-backtrace")]
-extern crate backtrace;
-
 mod cli;
 mod core;
 mod event_controller;
@@ -32,22 +6,19 @@ mod logging;
 #[cfg(feature = "tracing")]
 mod trace;
 
-use std::cell::RefCell;
-use std::fs::File;
-use std::io::prelude::*;
-use std::io::stdin;
-use std::process::exit;
-use std::rc::Rc;
-use std::thread;
+use std::{
+    cell::RefCell,
+    fs::File,
+    io::{prelude::*, stdin},
+    process::exit,
+    rc::Rc,
+    thread,
+};
 
-use event_controller::style::TermionStyles;
-use event_controller::window::TermionLayout;
-use event_controller::{EventController, Styles};
-use input_controller::keyboard::TermionKeyboard;
-use input_controller::{Config, InputController};
-
-use failure::Error;
-
+use event_controller::{style::TermionStyles, window::TermionLayout, EventController, Styles};
+use failure::{format_err, Error};
+use input_controller::{keyboard::TermionKeyboard, Config, InputController};
+use serde_json::json;
 use xi_rpc::{Peer, RpcLoop};
 
 fn setup_logger() {

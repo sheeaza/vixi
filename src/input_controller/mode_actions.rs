@@ -43,6 +43,7 @@ pub mod defaults {
 
     use super::super::actions::Action;
     use super::super::keyboard::KeyStroke;
+    use lazy_static::lazy_static;
 
     lazy_static! {
         pub static ref DEFAULT_NORMAL_MODE_ACTIONS: HashMap<KeyStroke, Action> = {
