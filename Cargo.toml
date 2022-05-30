@@ -35,16 +35,16 @@ features = ["suggestions", "color", "wrap_help"]
 version = "2.32.0"
 
 [dependencies.xi-core-lib]
+git = "file:///home/max/project/xi-editor"
 branch = "master"
-git = "https://github.com/xi-editor/xi-editor"
 
 [dependencies.xi-rpc]
+git = "file:///home/max/project/xi-editor"
 branch = "master"
-git = "https://github.com/xi-editor/xi-editor"
 
 [dependencies.xi-trace]
+git = "file:///home/max/project/xi-editor"
 branch = "master"
-git = "https://github.com/xi-editor/xi-editor"
 features = ["chrome_trace_event"]
 optional = true
 

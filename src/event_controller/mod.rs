@@ -24,8 +24,8 @@ use xi_rpc::{RemoteError, RpcCall, RpcCtx};
 pub struct LineDescription {
     cursor: Option<Vec<i32>>,
     ln: Option<usize>,
-    styles: Vec<StyleID>,
-    text: String,
+    styles: Option<Vec<StyleID>>,
+    text: Option<String>,
 }
 
 #[derive(Deserialize, Debug)]

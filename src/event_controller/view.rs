@@ -197,12 +197,29 @@ impl View {
                 "ins" => {
                     for line in operation.lines.unwrap() {
                         new_buffer.lines.push(Line {
-                            raw: styles.apply_to(line.styles, &line.text),
+                            raw: styles.apply_to(line.styles.unwrap(), &line.text.unwrap()),
                             ln: line.ln,
                             is_dirty: true,
                             is_valid: true,
                         });
                         new_idx += 1;
+                    }
+                }
+                "update" => {
+                    if operation.n != operation.lines.as_ref().unwrap().len() {
+                        error!("invalid update: {:?}, size mismatch", operation);
+                    } else {
+                        for line in operation.lines.unwrap() {
+                            let old_line = &self.buffer.lines[line.ln.unwrap() - 1];
+                            new_buffer.lines.push(Line {
+                                raw: old_line.raw.clone(),
+                                ln: old_line.ln,
+                                is_dirty: false,
+                                is_valid: true,
+                            });
+                        }
+                        new_idx += operation.n;
+                        old_idx += operation.n;
                     }
                 }
                 _ => error!("unhandled update: {:?}", operation),
