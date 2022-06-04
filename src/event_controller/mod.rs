@@ -21,6 +21,7 @@ use serde_json::Value;
 use xi_rpc::{RemoteError, RpcCall, RpcCtx};
 
 #[derive(Deserialize, Debug)]
+#[allow(dead_code)]
 pub struct LineDescription {
     cursor: Option<Vec<i32>>,
     ln: Option<usize>,
@@ -38,6 +39,7 @@ pub struct Operation {
 }
 
 #[derive(Deserialize, Debug)]
+#[allow(dead_code)]
 pub struct Annotation {
     #[serde(rename = "type")]
     kind: String,
@@ -148,6 +150,7 @@ impl EventController {
 
     fn handle_new_status_item(&mut self, body: &Value) {
         #[derive(Deserialize, Debug)]
+        #[allow(dead_code)]
         struct Event {
             //source: String,
             key: String,
@@ -252,6 +255,7 @@ impl EventController {
     /// - "ins" -> Insert some new content.
     fn handle_content_update(&mut self, ctx: &RpcCtx, body: &Value) {
         #[derive(Deserialize, Debug)]
+        #[allow(dead_code)]
         struct Update {
             annotations: Vec<Annotation>,
             #[serde(rename = "ops")]

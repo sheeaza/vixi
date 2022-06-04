@@ -5,9 +5,7 @@ use std::rc::Rc;
 use super::window::TermionWindow;
 use crate::event_controller::window::{Layout, Window, WindowPosition, WindowSize};
 
-use log::debug;
 use termion::clear;
-use termion::color::DetectColors;
 use termion::raw::IntoRawMode;
 use termion::screen::AlternateScreen;
 
