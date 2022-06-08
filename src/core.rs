@@ -102,22 +102,22 @@ impl ClientToClientWriter {
 pub fn start_xi_core() -> (Writer, Reader, ClientToClientWriter) {
     let mut core = XiCore::new();
 
-    let (to_core_tx, to_core_rx) = channel();
-    let client_to_core_writer = Writer(to_core_tx);
-    let client_to_core_reader = Reader(to_core_rx);
+    let (core_tx, core_rx) = channel();
+    let core_ch_writer = Writer(core_tx);
+    let core_ch_reader = Reader(core_rx);
 
-    let (from_core_tx, from_core_rx) = channel();
-    let core_to_client_writer = Writer(from_core_tx.clone());
-    let core_to_client_reader = Reader(from_core_rx);
+    let (client_tx, client_rx) = channel();
+    let client_ch_writer = Writer(client_tx.clone());
+    let client_ch_reader = Reader(client_rx);
 
-    let client_to_client_writer = ClientToClientWriter(Writer(from_core_tx));
+    let client_ch_writer2 = ClientToClientWriter(Writer(client_tx));
 
-    let mut core_event_loop = RpcLoop::new(core_to_client_writer);
-    thread::spawn(move || core_event_loop.mainloop(|| client_to_core_reader, &mut core));
+    let mut core_event_loop = RpcLoop::new(client_ch_writer);
+    thread::spawn(move || core_event_loop.mainloop(|| core_ch_reader, &mut core));
 
     (
-        client_to_core_writer,
-        core_to_client_reader,
-        client_to_client_writer,
+        core_ch_writer,
+        client_ch_reader,
+        client_ch_writer2,
     )
 }

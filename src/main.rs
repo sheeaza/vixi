@@ -66,9 +66,9 @@ fn main() {
     #[cfg(feature = "tracing")]
     trace::start_tracer();
 
-    let (client_to_core_writer, core_to_client_reader, client_to_client_writer) =
+    let (core_ch_writer, client_ch_reader, client_ch_writer) =
         core::start_xi_core();
-    let mut front_event_loop = RpcLoop::new(client_to_core_writer);
+    let mut front_event_loop = RpcLoop::new(core_ch_writer);
 
     let raw_peer = front_event_loop.get_raw_peer();
     let config = match setup_config(&raw_peer) {
@@ -87,13 +87,13 @@ fn main() {
 
         let mut event_handler = EventController::new(Box::new(layout), styles.clone());
         front_event_loop
-            .mainloop(|| core_to_client_reader, &mut event_handler)
+            .mainloop(|| client_ch_reader, &mut event_handler)
             .unwrap();
     });
 
     let mut input_controller = InputController::new(
         Box::new(TermionKeyboard::from_reader(stdin())),
-        client_to_client_writer,
+        client_ch_writer,
         &config,
     );
 
